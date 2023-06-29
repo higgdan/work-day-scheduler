@@ -22,6 +22,10 @@ $(function () {
   // TODO: Add code to display the current date in the header of the page.
 });
 
+// using Day.js API to display the current day at the top of the page
+let todayDate = dayjs();
+$('#currentDay').text(todayDate.format('dddd, MMM D, YYYY'));
+
 // define the set of all time blocks to be created, in 24hr format
 let hours9to5 = ["09","10","11","12","13","14","15","16","17"]
 
@@ -42,9 +46,23 @@ let populateTimeBlocks = function() {
 
     // set unique id using the value from the hours9to5 array
     hourContainerEl.attr("id", "hour-" + hour);
+
+    // conditionals to apply appropraite past, present, future class
+    if (hour < dayjs().format("HH")) {
     hourContainerEl.addClass("row time-block past");
+    }
+    if (hour === dayjs().format("HH")) {
+    hourContainerEl.addClass("row time-block present");
+    }
+    if (hour > dayjs().format("HH")) {
+    hourContainerEl.addClass("row time-block future");
+    }
+
     hourTitleEl.addClass("col-2 col-md-1 hour text-center py-3");
-    hourTitleEl.text(hour);
+
+    // parsing the value from the hours9to5 array and formatting it into 12hr clock, plus AM or PM
+    hourTitleEl.text(dayjs().hour(hour).format("hA"));
+
     textAreaEl.addClass("col-8 col-md-10 description");
     textAreaEl.attr("rows", "3");
     saveButtonEl.addClass("btn saveBtn col-2 col-md-1");
