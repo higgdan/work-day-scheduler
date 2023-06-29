@@ -4,7 +4,7 @@ For the fifth weekly challenge, my task was to modify starter code using jQuery,
 
 The HTML and CSS files were provided as starter code and were only modified to remove the static examples of time blocks, and to insert an id attribute for the schedule container. The JavaScript/jQuery code for the application, as shown below, was of my own design.
 
-![An example of the Word Day Scheduler](./assets/images/wds-application.png)
+![An example of the Work Day Scheduler](./assets/images/wds-application.png)
 
 ## Associated links:
 
