@@ -65,6 +65,12 @@ let populateTimeBlocks = function() {
 
     textAreaEl.addClass("col-8 col-md-10 description");
     textAreaEl.attr("rows", "3");
+
+    // conditional to check if local storage exists and, if any, adds content to the text area element
+    if (localStorage.getItem("schedhour-" + hour) !== null) {
+      textAreaEl.text(localStorage.getItem("schedhour-" + hour));
+    }
+
     saveButtonEl.addClass("btn saveBtn col-2 col-md-1");
     saveButtonEl.attr("aria-label", "save");
     iconEl.addClass("fas fa-save");
@@ -81,5 +87,16 @@ let populateTimeBlocks = function() {
   }
 }
 
+// identifies the relative parent element to the button clicked, and adds the text area content, if any, to the local storage.
+let addToStorage = function() {
+  let parentDiv = $(this).parent();
+  let parentDivId = $(this).parent().attr('id');
+  let insertText = parentDiv.children().eq(1).val();
+  localStorage.setItem("sched" + parentDivId, insertText);
+}
+
 // execute funtion to populate page with content
 populateTimeBlocks();
+
+// listen for a click on any button within the schedule container element and run the function to add to storage
+scheduleEl.on("click", ".saveBtn", addToStorage);
